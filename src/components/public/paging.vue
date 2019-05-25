@@ -42,6 +42,7 @@ export default {
     //设置额外请求数据
     setReqData() {
       let data = "";
+      this.page = 1;
       for (let key in this.data) {
         data += `&${key}=${this.data[key]}`;
       }
@@ -68,7 +69,7 @@ export default {
   watch: {
     //监听变化再次请求
     keyword() {
-      this.getPageData();
+      this.setReqData();
     },
     data: {
       handler() {

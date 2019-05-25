@@ -175,7 +175,9 @@ const utils = {
       sessionStorage.setItem(key, JSON.stringify(value));
     },
     get(key) {
-      return JSON.parse(sessionStorage.getItem(key));
+      try {
+        return JSON.parse(sessionStorage.getItem(key));
+      } catch (err) {}
     },
     clear() {
       sessionStorage.clear();
@@ -190,7 +192,6 @@ const utils = {
     tag.forEach(item => {
       item.style.cssText += style;
     });
-
   }
 }
 

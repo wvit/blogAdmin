@@ -1,10 +1,9 @@
-const production = true;
-const url = production ? 'www.ouchenfootball.cn' : '10.100.115.173:8080';
+const production = false;
+const url = production ? '132.232.124.236:2000' : '10.100.115.100:1999';
 
 module.exports = {
   baseUrl: './',
-  assetsDir: './static',
   devServer: {
-    proxy: `https://${url}`
+    proxy: `http://${url}`
   }
 };

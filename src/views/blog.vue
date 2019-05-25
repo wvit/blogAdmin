@@ -13,6 +13,10 @@ export default {
         {
           name: "添加博客",
           url: "/home/blog/add"
+        },
+        {
+          name: "博客列表",
+          url: "/home/blog/list"
         }
       ]
     };

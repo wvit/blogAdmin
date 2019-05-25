@@ -1,29 +1,14 @@
 <template>
   <div class="wrap">
     <div class="signIn">
-      <h1>
-        千辰体育后台管理系统登录
-      </h1>
+      <h1>blog后台管理登录</h1>
       <div class="mt20 username">
-        <el-input
-          v-model="signIn.username"
-          placeholder="请输入账号"
-          clearable
-        ></el-input>
+        <el-input v-model="signIn.username" placeholder="请输入账号" clearable></el-input>
       </div>
       <div class="mt20 password">
-        <el-input
-          type="password"
-          v-model="signIn.password"
-          placeholder="请输入密码"
-          clearable
-        ></el-input>
+        <el-input type="password" v-model="signIn.password" placeholder="请输入密码" clearable></el-input>
       </div>
-      <el-button
-        type="primary"
-        class="mt20"
-        @click="adminSignIn"
-      >登录</el-button>
+      <el-button type="primary" class="mt20" @click="adminSignIn">登录</el-button>
     </div>
   </div>
 </template>
@@ -46,7 +31,7 @@ export default {
       } else if (!this.$utils.judgeNull(this.signIn.password)) {
         this.$utils.showToast({ text: "请输入密码" });
       } else {
-        this.$axios.post("/admin/login", this.signIn).then(res => {
+        this.$axios.post("/admin/signIn", this.signIn).then(res => {
           if (res.data.code === 0) {
             this.$router.replace("/home");
             this.$utils.store.set("token", res.data.token);

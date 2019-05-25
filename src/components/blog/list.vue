@@ -13,30 +13,23 @@ export default {
         deleteType: 3, //删除请求的类型参数
         editBtnName: "编辑", //修改按钮名字
         editUrl: "/home/news/list/edit", //修改内容跳转的页面
-        getListUrl: "/admin/news/list", //请求分页数据地址
-        sortType: 1, //排序type
+        getListUrl: "/admin/getBlogs", //请求分页数据地址
         //表格的每项数据
         tabItem: [
           {
-            prop: "id",
-            label: "ID",
-            width: 100
-          },
-          {
-            prop: "school_name",
-            label: "营区"
+            prop: "_id",
+            label: "ID"
           },
           {
             prop: "title",
             label: "新闻标题"
           },
           {
-            prop: "is_index",
-            label: "位置",
-            select: ["营区", "首页"]
+            prop: "pageView",
+            label: "浏览量"
           },
           {
-            prop: "add_time",
+            prop: "addTime",
             label: "发布时间"
           }
         ]
