@@ -4,18 +4,30 @@
       <li class="clearfix">
         <span>博客标题：</span>
         <div>
-          <el-input v-model="blogData.title" placeholder="请输入博客标题" clearable></el-input>
+          <el-input
+            v-model="blogData.title"
+            placeholder="请输入博客标题"
+            clearable
+          ></el-input>
         </div>
       </li>
       <li class="clearfix">
         <span>博客内容:</span>
         <div class="quill-editor-wrap">
-          <quill-editor :options="editorOption" v-model="blogData.content"></quill-editor>
+          <quill-editor
+            :options="editorOption"
+            v-model="blogData.content"
+          ></quill-editor>
         </div>
       </li>
     </ul>
     <div class="btn-wrap">
-      <el-button type="primary" class="btn" @click="addBlog" round>确认</el-button>
+      <el-button
+        type="primary"
+        class="btn"
+        @click="addBlog"
+        round
+      >确认</el-button>
     </div>
   </div>
 </template>
@@ -30,7 +42,8 @@ export default {
       //添加博客数据
       blogData: {
         title: "",
-        content: ""
+        content: "",
+        type: 0 //0添加 1修改 2删除
       },
       //富文本配置
       editorOption: {
@@ -52,7 +65,8 @@ export default {
             }
           }
         }
-      }
+      },
+      editOnOff: false //是否是修改
     };
   },
   //初始化
@@ -64,7 +78,8 @@ export default {
       for (let key in this.blogData) {
         this.blogData[key] = editData[key];
       }
-      this.blogData.id = editData.id;
+      this.blogData.type = 1;
+      this.blogData.id = editData._id;
     }
   },
   methods: {
@@ -80,16 +95,15 @@ export default {
         this.$utils.setQuillStyle("p", style);
         this.$utils.setQuillStyle("img", style);
         this.blogData.content = this.$utils.query(".ql-editor")[0].innerHTML;
-        this.$axios.post("/admin/addBlog", this.blogData).then(res => {
+        this.$axios.post("/admin/blog", this.blogData).then(res => {
+          this.$utils.showToast({ text: res.data.data });
           if (res.data.code !== 0) return;
           this.blogData = this.$utils.store.get("defaultData");
-          this.$utils.showToast({ text: res.data.data });
           if (this.editOnOff) this.$router.replace("/home/blog/list");
         });
       }
     }
-  },
-  components: {}
+  }
 };
 </script>
 

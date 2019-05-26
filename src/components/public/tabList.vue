@@ -1,7 +1,11 @@
 <template>
   <div class="admin-list">
     <search @search="search"></search>
-    <el-table :data="list" border style="width: 100%">
+    <el-table
+      :data="list"
+      border
+      style="width: 100%"
+    >
       <el-table-column
         v-for="(item,index) of config.tabItem"
         :key="index"
@@ -10,16 +14,30 @@
       >
         <template slot-scope="scope">
           <p v-if="!item.type&&!item.select">{{scope.row[item.prop]}}</p>
-          <img v-if="item.type==='img'" :src="scope.row[item.prop]">
+          <img
+            v-if="item.type==='img'"
+            :src="scope.row[item.prop]"
+          >
           <p v-if="item.select">{{item.select[scope.row[item.prop]]}}</p>
         </template>
       </el-table-column>
-      <el-table-column label="排序" v-if="config.sortType" width="100">
+      <el-table-column
+        label="排序"
+        v-if="config.sortType"
+        width="100"
+      >
         <template slot-scope="scope">
-          <el-input @blur="sort(scope.row)" v-model="list[scope.$index].sort" clearable></el-input>
+          <el-input
+            @blur="sort(scope.row)"
+            v-model="list[scope.$index].sort"
+            clearable
+          ></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="操作" v-if="config.deleteUrl||config.editUrl||config.dialogBtn">
+      <el-table-column
+        label="操作"
+        v-if="config.deleteUrl||config.editUrl||config.dialogBtn"
+      >
         <template slot-scope="scope">
           <el-button
             type="text"
@@ -94,7 +112,7 @@ export default {
         sort: data.sort
       });
     },
-    //删除活动
+    //删除条目
     deleteItem(index) {
       this.$confirm(`此操作将永久删除该条目, 是否继续?`, "提示", {
         confirmButtonText: "确定",
@@ -103,7 +121,7 @@ export default {
       })
         .then(() => {
           return this.$axios.post(this.config.deleteUrl, {
-            id: this.list[index].id,
+            id: this.list[index]._id,
             [this.config.deleteKey]: this.config.deleteType
           });
         })
