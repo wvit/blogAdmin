@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 //管理员
-import blog from './router/blog.js';
+import blog from './router/blog';
+//请求数据
+import reqData from './router/reqData';
 
 Vue.use(Router)
 
@@ -18,7 +20,7 @@ export default new Router({
       component: () => import('@/views/home.vue'),
       redirect: 'home/blog',
       //子路由
-      children: [blog]
+      children: [blog, reqData]
     },
     {
       //登录路由

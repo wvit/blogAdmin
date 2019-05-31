@@ -8,14 +8,8 @@
     </div>
     <div class="main clearfix">
       <ul class="leftNav">
-        <li
-          v-for="(item,index) of leftNav"
-          :key="index"
-        >
-          <router-link
-            :to="item.url"
-            active-class="active"
-          >{{item.text}}</router-link>
+        <li v-for="(item,index) of leftNav" :key="index">
+          <router-link :to="item.url" active-class="active">{{item.text}}</router-link>
         </li>
       </ul>
       <div class="right">
@@ -34,6 +28,10 @@ export default {
         {
           text: "博客管理",
           url: "/home/blog"
+        },
+        {
+          text: "请求数据统计",
+          url: "/home/reqData"
         }
       ],
       userInfo: { user_name: "wv" } //用户信息
