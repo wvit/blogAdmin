@@ -125,7 +125,6 @@ export default {
       for (let key in this.blogData) {
         this.blogData[key] = editData[key];
       }
-      this.blogData.tags = JSON.parse(editData.tags);
       this.blogData.type = 1;
       this.blogData.id = editData._id;
     }
@@ -158,7 +157,6 @@ export default {
         this.$utils.setQuillStyle("p", style);
         this.$utils.setQuillStyle("img", style);
         this.blogData.content = this.$utils.query(".ql-editor")[0].innerHTML;
-        this.blogData.tags = JSON.stringify(this.blogData.tags);
         this.$axios.post("/admin/blog", this.blogData).then(res => {
           this.$utils.showToast({ text: res.data.data });
           if (res.data.code !== 0) return;
