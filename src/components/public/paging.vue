@@ -24,6 +24,11 @@ export default {
         return {};
       }
     },
+    //一页数量
+    pageSize: {
+      type: Number,
+      default: 10
+    },
     refreshPage: Number //刷新页面
   },
   data() {
@@ -46,7 +51,7 @@ export default {
       for (let key in this.data) {
         data += `&${key}=${this.data[key]}`;
       }
-      this.requestUrl = `${this.url}?pageSize=10${data}`;
+      this.requestUrl = `${this.url}?pageSize=${this.pageSize}${data}`;
       this.getPageData();
     },
     //分页改变

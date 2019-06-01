@@ -1,11 +1,7 @@
 <template>
   <div class="admin-list">
     <search @search="search"></search>
-    <el-table
-      :data="list"
-      border
-      style="width: 100%"
-    >
+    <el-table :data="list" border style="width: 100%">
       <el-table-column
         v-for="(item,index) of config.tabItem"
         :key="index"
@@ -14,30 +10,16 @@
       >
         <template slot-scope="scope">
           <p v-if="!item.type&&!item.select">{{scope.row[item.prop]}}</p>
-          <img
-            v-if="item.type==='img'"
-            :src="scope.row[item.prop]"
-          >
+          <img v-if="item.type==='img'" :src="scope.row[item.prop]">
           <p v-if="item.select">{{item.select[scope.row[item.prop]]}}</p>
         </template>
       </el-table-column>
-      <el-table-column
-        label="排序"
-        v-if="config.sortType"
-        width="100"
-      >
+      <el-table-column label="排序" v-if="config.sortType" width="100">
         <template slot-scope="scope">
-          <el-input
-            @blur="sort(scope.row)"
-            v-model="list[scope.$index].sort"
-            clearable
-          ></el-input>
+          <el-input @blur="sort(scope.row)" v-model="list[scope.$index].sort" clearable></el-input>
         </template>
       </el-table-column>
-      <el-table-column
-        label="操作"
-        v-if="config.deleteUrl||config.editUrl||config.dialogBtn"
-      >
+      <el-table-column label="操作" v-if="config.deleteUrl||config.editUrl||config.dialogBtn">
         <template slot-scope="scope">
           <el-button
             type="text"
@@ -64,6 +46,7 @@
     <paging
       @getPageData="getPageData"
       :url="config.getListUrl"
+      :pageSize="pageSize"
       :keyword="keyword"
       :data="getListData"
       :refreshPage="refreshPage"
@@ -87,6 +70,10 @@ export default {
         sortType: Number, //设置排序的type
         tabItem: Array //表格的每项数据
       }
+    },
+    pageSize: {
+      type: Number,
+      default: 10
     },
     //额外请求参数
     getListData: {

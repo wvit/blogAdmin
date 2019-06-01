@@ -1,6 +1,6 @@
 <template>
   <div class="admin-list">
-    <tabList :config="tabsListConfig"></tabList>
+    <tabList :config="tabsListConfig" :pageSize="20"></tabList>
   </div>
 </template>
 <script>
