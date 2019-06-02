@@ -25,7 +25,12 @@
         <span>博客标签:</span>
         <div>
           <el-checkbox-group v-model="blogData.tags">
-            <el-checkbox v-for="(item,index) of blogTag" :key="index" :label="item.tag">{{item.tag}}</el-checkbox>
+            <ul class="clearfix tag-list">
+              <li v-for="(item,index) of blogTag" :key="index">
+                <el-checkbox :label="item.tag" class="tag-item">{{item.tag}}</el-checkbox>
+                <span class="delete-item icon icon-close" @click="removeTag(item._id)"></span>
+              </li>
+            </ul>
           </el-checkbox-group>
         </div>
       </li>
@@ -153,10 +158,6 @@ export default {
       } else if (!utils.judgeNull(this.blogData.content)) {
         utils.showToast({ text: "请输入博客内容" });
       } else {
-        const style = "max-width:100%;word-wrap:break-word;";
-        this.$utils.setQuillStyle("p", style);
-        this.$utils.setQuillStyle("img", style);
-        this.blogData.content = this.$utils.query(".ql-editor")[0].innerHTML;
         this.$axios.post("/admin/blog", this.blogData).then(res => {
           this.$utils.showToast({ text: res.data.data });
           if (res.data.code !== 0) return;
@@ -204,5 +205,21 @@ export default {
 <style scoped>
 .agrms-list .search-wrap {
   margin: 0 0 15px;
+}
+.tag-list {
+  width: 750px;
+}
+.tag-list li {
+  float: left;
+  margin-right: 30px;
+  cursor: pointer;
+}
+
+.tag-list li span:hover {
+  color: red;
+}
+
+.tag-item {
+  margin-right: 15px;
 }
 </style>
