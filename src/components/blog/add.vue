@@ -102,12 +102,10 @@ export default {
             loading: true,
             name: "file",
             action: "/upload",
-            response: res => {
-              return res.data.path;
-            }
+            response: res => res.data.path
           },
           toolbar: {
-            container: container,
+            container,
             handlers: {
               image() {
                 QuillWatch.emit(this.quill.id);
