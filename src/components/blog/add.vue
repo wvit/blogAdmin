@@ -40,10 +40,15 @@
           <el-select v-model="blogData.classId" placeholder="请选择博客类型" class="w300">
             <el-option
               v-for="(item,index) of blogType"
-              :key="index"
               :label="item.tag"
+              :key="index"
               :value="item._id"
-            ></el-option>
+            >
+              <span class="type-item clearfix">
+                {{item.tag}}
+                <i class="icon icon-close" @click="removeTag(item._id)"></i>
+              </span>
+            </el-option>
           </el-select>
         </div>
       </li>
@@ -192,6 +197,7 @@ export default {
           if (res.data.code !== 0) return;
           this.$utils.showToast({ text: "删除成功" });
           const status = this.tagData.status;
+          this.blogData.classId = "";
           this.getTag(status, status === 1 ? "blogTag" : "blogType");
         })
         .catch(() => {});
@@ -219,5 +225,17 @@ export default {
 
 .tag-item {
   margin-right: 15px;
+}
+
+.type-item {
+  display: block;
+}
+
+.type-item i {
+  float: right;
+}
+
+.type-item i:hover {
+  color: red;
 }
 </style>
